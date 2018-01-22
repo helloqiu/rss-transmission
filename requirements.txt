@@ -3,3 +3,4 @@ pytest
 peewee
 feedparser
 requests
+transmissionrpc
