@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import pytest
 import os
 from rssbot.config import Config
 
@@ -27,3 +28,6 @@ def test_config_update():
         "rpc_path": "/喵"
     }
     assert config['work_dir'] == "喵喵喵"
+
+    with pytest.raises(RuntimeError):
+        config.config_update(config_path="喵喵")
