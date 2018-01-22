@@ -43,14 +43,12 @@ class TestFeedClass:
     def test_update(self):
         responses.add_callback(responses.GET, self.FeedURL, callback=self.feed_callback)
 
-        class FeederForTest(Feeder):
-            def send_to_transmission(self, item):
-                assert item.title == 'Item标题'
-                assert item.magnet_link == 'magnet:?xt=urn:btih:233'
-
-        feeder = FeederForTest()
+        feeder = Feeder()
         feeder.add(url=self.FeedURL, save_path="喵")
-        feeder.update()
+        result = feeder.update()
+        item = result[0]
+        assert item.title == 'Item标题'
+        assert item.magnet_link == 'magnet:?xt=urn:btih:233'
 
         items = Item.select()
         item = items[0]

@@ -32,6 +32,7 @@ class Feeder(object):
 
     def update(self):
         feeds = self.get_all_feeds()
+        result = list()
         for feed in feeds:
             r = requests.get(feed.url)
             items = self.parse_items(r.text)
@@ -39,8 +40,6 @@ class Feeder(object):
                 query = Item.select().where(Item.title == item['title'])
                 if not query.exists():
                     new_item = Item(**item, feed=feed)
-                    self.send_to_transmission(new_item)
+                    result.append(new_item)
                     new_item.save()
-
-    def send_to_transmission(self, item):
-        pass
+        return result
