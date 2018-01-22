@@ -1,0 +1,9 @@
+{
+  "update_interval": 600,
+  "server": {
+    "host": "localhost",
+    "port": 9091,
+    "rpc_path": "/transmission/rpc"
+  },
+  "work_dir": "~/.config/rss-transmission"
+}

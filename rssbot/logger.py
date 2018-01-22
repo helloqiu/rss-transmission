@@ -12,7 +12,7 @@ try:
 except ImportError:
     curses = None
 
-logger = logging.getLogger("WeRoBot")
+logger = logging.getLogger("rss-transmission")
 
 
 def enable_pretty_logging(logger, level='info'):

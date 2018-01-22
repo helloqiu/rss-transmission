@@ -1,0 +1,9 @@
+{
+  "update_interval": 800,
+  "server": {
+    "host": "喵喵",
+    "port": 1234,
+    "rpc_path": "/喵"
+  },
+  "work_dir": "喵喵喵"
+}
