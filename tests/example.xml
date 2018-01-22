@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+>
+    <channel>
+        <title><![CDATA[标题]]></title>
+        <link>http://233.com</link>
+        <description><![CDATA[描述]]></description>
+        <language>zh-cn</language>
+        <pubDate>Mon, 22 Jan 2018 19:49:48 +0800</pubDate>
+        <item>
+            <title><![CDATA[Item标题]]></title>
+            <link>http://233.com/233</link>
+            <pubDate>Wed, 17 Jan 2018 13:49:05 +0800</pubDate>
+            <description><![CDATA[Item描述]]></description>
+            <enclosure
+                    url="magnet:?xt=urn:btih:233"
+                    length="1" type="application/x-bittorrent"></enclosure>
+            <author><![CDATA[Item作者]]></author>
+            <guid isPermaLink="true">http://233.com</guid>
+            <category domain="http://233.com/picture"><![CDATA[動畫]]></category>
+        </item>
+    </channel>
+</rss>

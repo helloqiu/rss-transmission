@@ -1,3 +1,5 @@
 six
 pytest
 peewee
+feedparser
+requests

@@ -21,3 +21,13 @@ def test_feeds_add():
     assert len(feeds) == 1
     assert feeds[0].url == '喵喵'
     assert feeds[0].save_path == '喵'
+
+
+def test_feed_parse_items():
+    feeder = Feeder()
+    with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'example.xml'), 'r') as f:
+        content = f.read()
+    items = feeder.parse_items(content)
+    item = items[0]
+    assert item['title'] == 'Item标题'
+    assert item['magnet_link'] == 'magnet:?xt=urn:btih:233'
