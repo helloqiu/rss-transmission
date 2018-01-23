@@ -17,6 +17,8 @@ class Feed(BaseModel):
     title = CharField(default='No name')
     create_time = DateTimeField(default=datetime.datetime.now)
     keywords = CharField(default='[]')
+    last_check = DateTimeField(default=datetime.datetime.now)
+    last_add = DateTimeField(default=datetime.datetime.now)
 
 
 class Item(BaseModel):

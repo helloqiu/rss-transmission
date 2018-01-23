@@ -47,7 +47,10 @@ class Feeder(object):
                         for keyword in keywords:
                             if keyword in item['title']:
                                 result.append(new_item)
+                                Feed.update(last_add=datetime.datetime.now()).where(Feed.id == feed.id).execute()
                                 break
                     else:
                         result.append(new_item)
+                        Feed.update(last_add=datetime.datetime.now()).where(Feed.id == feed.id).execute()
+            Feed.update(last_check=datetime.datetime.now()).where(Feed.id == feed.id).execute()
         return result

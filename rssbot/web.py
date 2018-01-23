@@ -13,7 +13,11 @@ def feeds():
         all_feeds = Feed.select()
         result = list()
         for feed in all_feeds:
-            result.append(model_to_dict(feed))
+            temp = model_to_dict(feed)
+            temp['create_time'] = temp['create_time'].strftime('%Y-%m-%d %H:%M')
+            temp['last_check'] = temp['last_check'].strftime('%Y-%m-%d %H:%M')
+            temp['last_add'] = temp['last_add'].strftime('%Y-%m-%d %H:%M')
+            result.append(temp)
         return jsonify(result)
 
     if request.method == 'POST':
@@ -38,5 +42,8 @@ def items():
     all_items = Item.select()
     result = list()
     for item in all_items:
-        result.append(model_to_dict(item))
+        temp = model_to_dict(item)
+        temp['seen_time'] = temp['seen_time'].strftime('%Y-%m-%d %H:%M')
+        temp['publish_time'] = temp['publish_time'].strftime('%Y-%m-%d %H:%M')
+        result.append(temp)
     return jsonify(result)

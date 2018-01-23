@@ -1,7 +1,19 @@
 <template>
   <div id="items-list">
-    <h1 class="title list-title">Items</h1>
-    <table class="table is-striped">
+    <div class="title-container">
+      <h1 class="title list-title">Items</h1>
+      <a href="#" class="button title-button" v-on:click="change_show_state">
+        <p v-if="!show">
+          <i class="fa fa-angle-up" aria-hidden="true"></i>
+          &nbsp; show
+        </p>
+        <p v-else>
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+          &nbsp; hide
+        </p>
+      </a>
+    </div>
+    <table class="table is-striped" v-if="show">
       <thead>
         <tr>
           <th>ID</th>
@@ -25,7 +37,8 @@ export default {
   name: 'items-list',
   data () {
     return {
-      items: []
+      items: [],
+      show: false
     }
   },
   created () {
@@ -34,6 +47,11 @@ export default {
     .then((json) => {
       this.items = json
     })
+  },
+  methods: {
+    change_show_state: function() {
+      this.show = !this.show
+    }
   }
 }
 </script>
