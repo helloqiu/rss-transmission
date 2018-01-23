@@ -3,13 +3,14 @@
 
 import os
 import time
-import transmissionrpc
 from threading import Thread
+import transmissionrpc
 from rssbot.config import Config
 from rssbot.feeds import Feeder
 from rssbot.logger import logger, enable_pretty_logging
 from rssbot.models import db, Feed, Item
 from rssbot.web import app
+from gevent.wsgi import WSGIServer
 
 
 class Worker(object):
@@ -36,10 +37,7 @@ class Worker(object):
             )
         )
 
-    def run(self):
-        self.logger.info('Rss transmission is running.')
-        t = Thread(target=app.run, kwargs={'host': 'localhost', 'port': 9092})
-        t.start()
+    def work(self):
         while True:
             result = self.feeder.update()
             for item in result:
@@ -49,3 +47,10 @@ class Worker(object):
                 self.logger.info('Nothing to do.')
             self.logger.info('Update is done.')
             time.sleep(self.config['update_interval'])
+
+    def run(self):
+        self.logger.info('Rss transmission is running.')
+        server = WSGIServer(('0.0.0.0', 9092), app)
+        t = Thread(target=self.work)
+        t.start()
+        server.serve_forever()

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, jsonify, make_response
+import json
+from flask import Flask, request, jsonify, make_response, render_template
 from playhouse.shortcuts import model_to_dict
 from rssbot.models import Feed, Item
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/dist', static_folder='dist')
 
 
 @app.route('/api/feeds', methods=['GET', 'POST', 'DELETE'])
@@ -17,6 +18,7 @@ def feeds():
             temp['create_time'] = temp['create_time'].strftime('%Y-%m-%d %H:%M')
             temp['last_check'] = temp['last_check'].strftime('%Y-%m-%d %H:%M')
             temp['last_add'] = temp['last_add'].strftime('%Y-%m-%d %H:%M')
+            temp['keywords'] = json.loads(temp['keywords'])
             result.append(temp)
         return jsonify(result)
 
@@ -47,3 +49,8 @@ def items():
         temp['publish_time'] = temp['publish_time'].strftime('%Y-%m-%d %H:%M')
         result.append(temp)
     return jsonify(result)
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')

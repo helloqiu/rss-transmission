@@ -49,7 +49,7 @@ export default {
     })
   },
   methods: {
-    change_show_state: function() {
+    change_show_state: function () {
       this.show = !this.show
     }
   }
