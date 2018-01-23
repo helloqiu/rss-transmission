@@ -4,6 +4,7 @@
 import os
 import time
 import transmissionrpc
+from threading import Thread
 from rssbot.config import Config
 from rssbot.feeds import Feeder
 from rssbot.logger import logger, enable_pretty_logging
@@ -37,7 +38,8 @@ class Worker(object):
 
     def run(self):
         self.logger.info('Rss transmission is running.')
-        app.run(host='localhost', port=9092)
+        t = Thread(target=app.run, kwargs={'host': 'localhost', 'port': 9092})
+        t.start()
         while True:
             result = self.feeder.update()
             for item in result:
