@@ -16,6 +16,7 @@ class Feed(BaseModel):
     save_path = CharField()
     title = CharField(default='No name')
     create_time = DateTimeField(default=datetime.datetime.now)
+    keywords = CharField(default='[]')
 
 
 class Item(BaseModel):

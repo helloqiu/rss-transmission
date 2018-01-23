@@ -54,3 +54,16 @@ class TestFeedClass:
         item = items[0]
         assert item.title == 'Item标题'
         assert item.magnet_link == 'magnet:?xt=urn:btih:233'
+        item.delete().execute()
+
+        Feed.update(keywords='["喵喵"]').where(Feed.url == self.FeedURL).execute()
+
+        result = feeder.update()
+        assert len(result) == 0
+        item = Item.select()[0]
+        item.delete().execute()
+
+        Feed.update(keywords='["标题"]').where(Feed.url == self.FeedURL).execute()
+
+        result = feeder.update()
+        assert len(result) == 1

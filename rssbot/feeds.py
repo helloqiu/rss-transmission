@@ -3,6 +3,7 @@
 import feedparser
 import requests
 import datetime
+import json
 from rssbot.models import Feed, Item
 
 
@@ -39,7 +40,14 @@ class Feeder(object):
             for item in items:
                 query = Item.select().where(Item.title == item['title'])
                 if not query.exists():
+                    keywords = json.loads(feed.keywords)
                     new_item = Item(**item, feed=feed)
-                    result.append(new_item)
                     new_item.save()
+                    if len(keywords) > 0:
+                        for keyword in keywords:
+                            if keyword in item['title']:
+                                result.append(new_item)
+                                break
+                    else:
+                        result.append(new_item)
         return result
