@@ -2,7 +2,7 @@
 
 from flask import Flask, request, jsonify, make_response
 from playhouse.shortcuts import model_to_dict
-from rssbot.models import Feed
+from rssbot.models import Feed, Item
 
 app = Flask(__name__)
 
@@ -31,3 +31,12 @@ def feeds():
             query = Feed.delete().where(Feed.id == posted_feed['id'])
             query.execute()
             return make_response('OK', 200)
+
+
+@app.route('/api/items', methods=['GET'])
+def items():
+    all_items = Item.select()
+    result = list()
+    for item in all_items:
+        result.append(model_to_dict(item))
+    return jsonify(result)
