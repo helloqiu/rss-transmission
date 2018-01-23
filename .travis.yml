@@ -1,0 +1,10 @@
+language: python
+python:
+    - "3.6"
+install:
+    - pip install -r dev-requirements.txt
+script:
+    - python -m coverage run --source rssbot -m py.test
+after_success:
+    - pip install codecov
+    - codecov
