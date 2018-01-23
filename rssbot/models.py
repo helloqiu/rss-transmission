@@ -14,6 +14,8 @@ class BaseModel(Model):
 class Feed(BaseModel):
     url = CharField()
     save_path = CharField()
+    title = CharField(default='No name')
+    create_time = DateTimeField(default=datetime.datetime.now)
 
 
 class Item(BaseModel):

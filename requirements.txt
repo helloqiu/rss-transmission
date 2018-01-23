@@ -4,3 +4,4 @@ peewee
 feedparser
 requests
 transmissionrpc
+flask

@@ -8,6 +8,7 @@ from rssbot.config import Config
 from rssbot.feeds import Feeder
 from rssbot.logger import logger, enable_pretty_logging
 from rssbot.models import db, Feed, Item
+from rssbot.web import app
 
 
 class Worker(object):
@@ -36,6 +37,7 @@ class Worker(object):
 
     def run(self):
         self.logger.info('Rss transmission is running.')
+        app.run(host='localhost', port=9092)
         while True:
             result = self.feeder.update()
             for item in result:
