@@ -40,7 +40,10 @@ class Feeder(object):
             for item in items:
                 query = Item.select().where(Item.title == item['title'])
                 if not query.exists():
-                    keywords = json.loads(feed.keywords)
+                    try:
+                        keywords = json.loads(feed.keywords)
+                    except:
+                        keywords = []
                     new_item = Item(**item, feed=feed)
                     new_item.save()
                     if len(keywords) > 0:
