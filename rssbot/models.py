@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-from peewee import Model, CharField, ForeignKeyField, DateTimeField
-from playhouse.apsw_ext import APSWDatabase
+from peewee import Model, CharField, ForeignKeyField
+from playhouse.apsw_ext import APSWDatabase, DateTimeField
 
 db = APSWDatabase(None)
 
