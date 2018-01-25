@@ -5,6 +5,7 @@ import requests
 import datetime
 import json
 from rssbot.models import Feed, Item
+from rssbot.logger import logger
 
 
 class Feeder(object):
@@ -35,24 +36,31 @@ class Feeder(object):
         feeds = self.get_all_feeds()
         result = list()
         for feed in feeds:
+            logger.debug('Updating for feed: {}'.format(feed.title))
             r = requests.get(feed.url)
             items = self.parse_items(r.text)
             for item in items:
+                logger.debug('\tGet item: {}'.format(item['title']))
                 query = Item.select().where(Item.title == item['title'])
                 if not query.exists():
                     try:
+                        logger.debug('\tItem does not exist.')
                         keywords = json.loads(feed.keywords)
                     except:
                         keywords = []
                     new_item = Item(**item, feed=feed)
                     new_item.save()
+                    logger.debug('\tSaving item done.')
                     if len(keywords) > 0:
+                        logger.debug('\tChecking keywords.')
                         for keyword in keywords:
                             if keyword in item['title']:
+                                logger.debug('\tKeyword in title.')
                                 result.append(new_item)
                                 Feed.update(last_add=datetime.datetime.now()).where(Feed.id == feed.id).execute()
                                 break
                     else:
+                        logger.debug('\tNo keywords.Skip checking.')
                         result.append(new_item)
                         Feed.update(last_add=datetime.datetime.now()).where(Feed.id == feed.id).execute()
             Feed.update(last_check=datetime.datetime.now()).where(Feed.id == feed.id).execute()
