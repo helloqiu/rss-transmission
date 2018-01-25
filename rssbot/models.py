@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-from peewee import SqliteDatabase, Model, CharField, ForeignKeyField, DateTimeField
+from peewee import Model, CharField, ForeignKeyField, DateTimeField
+from playhouse.apsw_ext import APSWDatabase
 
-db = SqliteDatabase(None)
+db = APSWDatabase(None)
 
 
 class BaseModel(Model):
