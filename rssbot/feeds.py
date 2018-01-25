@@ -63,5 +63,9 @@ class Feeder(object):
                         logger.debug('\tNo keywords.Skip checking.')
                         result.append(new_item)
                         Feed.update(last_add=datetime.datetime.now()).where(Feed.id == feed.id).execute()
+                else:
+                    logger.debug('\tItem exists.')
+            logger.debug('Updating feed last check.')
             Feed.update(last_check=datetime.datetime.now()).where(Feed.id == feed.id).execute()
+            logger.debug('Updating last check done.')
         return result
