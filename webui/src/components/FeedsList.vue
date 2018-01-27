@@ -177,7 +177,7 @@
         this.update_keyword = ""
       },
       submit: function () {
-        if (length(this.add_feed_data.keywords) === 0) {
+        if (this.add_feed_data.keywords.length === 0) {
           this.add_feed_data.keywords = "[]"
         }
         this.$http.post('feeds', this.add_feed_data, {'Content-Type': 'application/json'})
