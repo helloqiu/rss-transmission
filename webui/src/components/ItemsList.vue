@@ -43,10 +43,10 @@ export default {
   },
   created () {
     this.$http.get('items')
-    .then(response => response.json())
-    .then((json) => {
-      this.items = json
-    })
+      .then(response => response.json())
+      .then((json) => {
+        this.items = json
+      })
   },
   methods: {
     change_show_state: function () {
@@ -55,5 +55,3 @@ export default {
   }
 }
 </script>
-
-

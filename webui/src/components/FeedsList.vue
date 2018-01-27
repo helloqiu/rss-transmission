@@ -127,93 +127,93 @@
 </template>
 
 <script>
-  export default {
-    name: 'feeds-list',
-    data() {
-      return {
-        feeds: [],
-        add_show: false,
-        add_feed_data: {
-          title: 'Default title',
-          url: '',
-          save_path: '',
-          keywords: []
-        },
-        add_keyword: "",
-        update_show: false,
-        update_feed_data: {
-          id: '',
-          title: '',
-          url: '',
-          save_path: '',
-          keywords: []
-        },
-        update_keyword: ""
-      }
-    },
-    created() {
-      this.$http.get('feeds')
+export default {
+  name: 'feeds-list',
+  data () {
+    return {
+      feeds: [],
+      add_show: false,
+      add_feed_data: {
+        title: 'Default title',
+        url: '',
+        save_path: '',
+        keywords: []
+      },
+      add_keyword: '',
+      update_show: false,
+      update_feed_data: {
+        id: '',
+        title: '',
+        url: '',
+        save_path: '',
+        keywords: []
+      },
+      update_keyword: ''
+    }
+  },
+  created () {
+    this.$http.get('feeds')
       .then(response => response.json())
       .then((json) => {
         this.feeds = json
       })
+  },
+  methods: {
+    change_show_state: function () {
+      this.add_show = !this.add_show
+      this.add_feed_data = {
+        title: 'Default title',
+        url: '',
+        save_path: '',
+        keywords: []
+      }
     },
-    methods: {
-      change_show_state: function () {
-        this.add_show = !this.add_show
-        this.add_feed_data = {
-          title: 'Default title',
-          url: '',
-          save_path: '',
-          keywords: []
-        }
-      },
-      add_and_clear_keyword: function () {
-        this.add_feed_data.keywords.push(this.add_keyword)
-        this.add_keyword = ""
-      },
-      add_and_clear_update_keyword: function () {
-        this.update_feed_data.keywords.push(this.update_keyword)
-        this.update_keyword = ""
-      },
-      submit: function () {
-        if (this.add_feed_data.keywords.length === 0) {
-          this.add_feed_data.keywords = "[]"
-        }
-        this.$http.post('feeds', this.add_feed_data, {'Content-Type': 'application/json'})
-          .then((response) => {
-          if (response.body === 'OK'){
-            location.reload()
-          }
-        })
-      },
-      show_update: function (id) {
-        this.click_feed_id = id
-        for (const feed of this.feeds) {
-          if (feed.id === id) {
-            this.update_feed_data = JSON.parse(JSON.stringify(feed))
-            delete this.update_feed_data.last_add
-            delete this.update_feed_data.last_check
-            delete this.update_feed_data.create_time
-            break
-          }
-        }
-        this.change_update_state()
-      },
-      change_update_state: function () {
-        this.update_show = !this.update_show
-      },
-      update: function() {
-        this.update_feed_data.keywords = JSON.stringify(this.update_feed_data.keywords)
-        this.$http.post('feeds', this.update_feed_data, {'Content-Type': 'application/json'})
+    add_and_clear_keyword: function () {
+      this.add_feed_data.keywords.push(this.add_keyword)
+      this.add_keyword = ''
+    },
+    add_and_clear_update_keyword: function () {
+      this.update_feed_data.keywords.push(this.update_keyword)
+      this.update_keyword = ''
+    },
+    submit: function () {
+      if (this.add_feed_data.keywords.length === 0) {
+        this.add_feed_data.keywords = '[]'
+      }
+      this.$http.post('feeds', this.add_feed_data, {'Content-Type': 'application/json'})
         .then((response) => {
           if (response.body === 'OK') {
             location.reload()
           }
         })
+    },
+    show_update: function (id) {
+      this.click_feed_id = id
+      for (const feed of this.feeds) {
+        if (feed.id === id) {
+          this.update_feed_data = JSON.parse(JSON.stringify(feed))
+          delete this.update_feed_data.last_add
+          delete this.update_feed_data.last_check
+          delete this.update_feed_data.create_time
+          break
+        }
       }
+      this.change_update_state()
+    },
+    change_update_state: function () {
+      this.update_show = !this.update_show
+    },
+    update: function () {
+      this.update_feed_data.keywords = JSON.stringify(this.update_feed_data.keywords)
+      this.$http.post('feeds', this.update_feed_data, {'Content-Type': 'application/json'})
+        .then((response) => {
+          if (response.body === 'OK') {
+            location.reload()
+          }
+        })
     }
   }
+}
 </script>
 
 <style>
@@ -242,4 +242,3 @@
     color: #000;
   }
 </style>
-

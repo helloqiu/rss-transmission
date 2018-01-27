@@ -40,9 +40,6 @@ html, body, #app {
   height: 100%;
   width: 100%;
 }
-.green-icon {
-  color: #00d1b2;
-}
 .list-title {
   margin-top: 1.5rem;
 }
