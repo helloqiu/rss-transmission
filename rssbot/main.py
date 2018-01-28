@@ -39,17 +39,20 @@ class Worker(object):
 
     def work(self):
         while True:
-            self.logger.debug('Start to update.')
-            result = self.feeder.update()
-            for item in result:
-                self.logger.info('Get new item:\nTitle: {}\nMagnet: {}'.format(item.title, item.magnet_link))
-                self.logger.debug('\tStart to add torrent to transmission.')
-                self.client.add_torrent(item.magnet_link, download_dir=item.feed.save_path)
-                self.logger.debug('\tAdding done.')
-            if len(result) == 0:
-                self.logger.info('Nothing to do.')
-            self.logger.info('Update is done.')
-            time.sleep(self.config['update_interval'])
+            try:
+                self.logger.debug('Start to update.')
+                result = self.feeder.update()
+                for item in result:
+                    self.logger.info('Get new item:\nTitle: {}\nMagnet: {}'.format(item.title, item.magnet_link))
+                    self.logger.debug('\tStart to add torrent to transmission.')
+                    self.client.add_torrent(item.magnet_link, download_dir=item.feed.save_path)
+                    self.logger.debug('\tAdding done.')
+                if len(result) == 0:
+                    self.logger.info('Nothing to do.')
+                self.logger.info('Update is done.')
+                time.sleep(self.config['update_interval'])
+            except Exception as e:
+                self.logger.info(e)
 
     def run(self):
         self.logger.info('Rss transmission is running.')
