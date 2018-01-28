@@ -13,7 +13,6 @@ setup(
     author_email="helloqiu95@gmail.com",
     url='https://github.com/helloqiu/rss-transmission',
     packages=find_packages(),
-    packages_data={"rssbot": ["templates/*", "dist/*", "default_settings.json"]},
     include_package_data=True,
     install_requires=open("requirements.txt").readlines(),
     license="GPLv3",

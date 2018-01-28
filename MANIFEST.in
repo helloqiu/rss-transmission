@@ -1,6 +1,7 @@
 include requirements.txt
 include README.md
 include LICENSE
-include rssbot/dist/*
+include rssbot/static/css/*
+include rssbot/static/js/*
 include rssbot/templates/*
 include rssbot/default_settings.json
