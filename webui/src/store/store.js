@@ -67,7 +67,8 @@ const actions = {
   },
   setModalToUpdate ({ commit, getters }, id) {
     return new Promise((resolve, reject) => {
-      commit('setModalFeed', getters.getFeedByID(id))
+      const temp = JSON.parse(JSON.stringify(getters.getFeedByID(id)))
+      commit('setModalFeed', temp)
     })
   },
   postFeed () {
