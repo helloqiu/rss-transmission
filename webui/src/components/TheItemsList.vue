@@ -37,21 +37,38 @@ export default {
   name: 'items-list',
   data () {
     return {
-      items: [],
       show: false
     }
   },
   created () {
-    this.$http.get('items')
-      .then(response => response.json())
-      .then((json) => {
-        this.items = json
-      })
+    this.$store.dispatch('updateItems')
   },
   methods: {
     change_show_state: function () {
       this.show = !this.show
     }
+  },
+  computed: {
+    items () {
+      return this.$store.getters.getAllItems
+    }
   }
 }
 </script>
+
+<style scoped>
+table {
+  width: 100%;
+}
+.title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.title-button {
+  margin-left: 1rem;
+}
+.list-title {
+  margin-top: 1.5rem;
+}
+</style>

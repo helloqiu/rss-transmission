@@ -1,13 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <p class="navbar-item">
-          <i class="fa fa-rss" aria-hidden="true"></i>
-          &nbsp;RSS Transmission WEB UI
-        </p>
-      </div>
-    </nav>
+    <navbar></navbar>
     <div class="columns">
       <div class="column is-10 is-offset-1">
         <feeds-list></feeds-list>
@@ -18,8 +11,9 @@
 </template>
 
 <script>
-import FeedsList from './components/FeedsList'
-import ItemsList from './components/ItemsList'
+import FeedsList from './components/TheFeedsList'
+import ItemsList from './components/TheItemsList'
+import Navbar from './components/TheNavbar'
 
 export default {
   name: 'app',
@@ -30,7 +24,8 @@ export default {
   },
   components: {
     'feeds-list': FeedsList,
-    'items-list': ItemsList
+    'items-list': ItemsList,
+    'navbar': Navbar
   }
 }
 </script>
@@ -38,12 +33,6 @@ export default {
 <style>
 html, body, #app {
   height: 100%;
-  width: 100%;
-}
-.list-title {
-  margin-top: 1.5rem;
-}
-table {
   width: 100%;
 }
 </style>

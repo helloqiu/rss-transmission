@@ -18,7 +18,7 @@ def feeds():
             temp['create_time'] = temp['create_time'].strftime('%Y-%m-%d %H:%M')
             temp['last_check'] = temp['last_check'].strftime('%Y-%m-%d %H:%M')
             temp['last_add'] = temp['last_add'].strftime('%Y-%m-%d %H:%M')
-            temp['keywords'] = json.loads(temp['keywords']) if temp['keywords'] else "[]"
+            temp['keywords'] = json.loads(temp['keywords']) if temp['keywords'] else []
             result.append(temp)
         return jsonify(result)
 
