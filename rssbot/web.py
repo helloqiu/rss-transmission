@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, make_response, render_template
 from playhouse.shortcuts import model_to_dict
 from rssbot.models import Feed, Item
 
-app = Flask(__name__, static_url_path='/dist', static_folder='dist')
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 
 @app.route('/api/feeds', methods=['GET', 'POST', 'DELETE'])
