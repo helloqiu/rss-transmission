@@ -29,6 +29,9 @@
             <label class="label">Keywords</label>
             <p v-for="keyword in feed.keywords" :key="keyword">
               {{ keyword }}
+              <a href="#" class="delete-button" v-on:click="delete_keyword(keyword)">
+                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+              </a>
             </p>
             <div class="keyword-container">
               <div class="control">
@@ -65,6 +68,9 @@ export default {
     },
     close () {
       this.$store.dispatch('toggleShowModal')
+    },
+    delete_keyword (keyword) {
+      this.$store.dispatch('deleteKeyword', keyword)
     }
   },
   props: [
@@ -112,6 +118,10 @@ export default {
 }
 .add-button {
   margin-left: 1rem;
+  color: #000;
+}
+.delete-button {
+  margin-left: 0.5rem;
   color: #000;
 }
 </style>

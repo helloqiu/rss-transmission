@@ -22,6 +22,13 @@ const mutations = {
   },
   setModalFeed (state, feed) {
     state.modal_feed = feed
+  },
+  deleteKeyword (state, keyword) {
+    state.modal_feed.keywords = state.modal_feed.keywords.filter(item => {
+      if (item !== keyword) {
+        return item
+      }
+    })
   }
 }
 
@@ -82,12 +89,16 @@ const actions = {
     if (temp.hasOwnProperty('last_add')) {
       delete temp['last_add']
     }
+    temp.keywords = JSON.stringify(temp.keywords)
     Vue.http.post('feeds', temp, {'Content-Type': 'application/json'})
       .then((response) => {
         if (response.body === 'OK') {
           location.reload()
         }
       })
+  },
+  deleteKeyword ({ commit }, keyword) {
+    commit('deleteKeyword', keyword)
   }
 }
 
