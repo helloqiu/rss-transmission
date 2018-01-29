@@ -57,18 +57,6 @@ export default {
       this.type = 'update'
       this.$store.dispatch('setModalToUpdate', id)
         .then(this.$store.dispatch('toggleShowModal'))
-    },
-    change_update_state: function () {
-      this.update_show = !this.update_show
-    },
-    update: function () {
-      this.update_feed_data.keywords = JSON.stringify(this.update_feed_data.keywords)
-      this.$http.post('feeds', this.update_feed_data, {'Content-Type': 'application/json'})
-        .then((response) => {
-          if (response.body === 'OK') {
-            location.reload()
-          }
-        })
     }
   },
   computed: {
