@@ -32,9 +32,12 @@ def feeds():
         return make_response('OK', 200)
 
     if request.method == 'DELETE':
-        posted_feed = request.get_json()
-        if 'id' in posted_feed.keys():
-            query = Feed.delete().where(Feed.id == posted_feed['id'])
+        feed_id = request.args.get('id', None)
+        if feed_id is not None:
+            feed = Feed.select().where(Feed.id == feed_id).get()
+            query = Item.delete().where(Item.feed == feed)
+            query.execute()
+            query = Feed.delete().where(Feed.id == feed.id)
             query.execute()
             return make_response('OK', 200)
 
