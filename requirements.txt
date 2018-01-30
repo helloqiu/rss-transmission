@@ -6,4 +6,3 @@ transmissionrpc
 flask
 gevent
 apsw
-m2r

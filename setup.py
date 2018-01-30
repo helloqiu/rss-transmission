@@ -2,10 +2,9 @@
 
 from setuptools import setup, find_packages
 from rssbot import __version__
-from m2r import convert
 
-with open("README.md", "r") as f:
-    readme = convert(f.read())
+with open("README.rst", "r") as f:
+    readme = f.read()
 
 setup(
     name='rss-transmission',
