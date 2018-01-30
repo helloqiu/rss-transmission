@@ -2,7 +2,7 @@
 
 import json
 from rssbot.web import app as application
-from rssbot.models import Feed
+from rssbot.models import Feed, Item
 from tests.utils import test_database
 from playhouse.sqlite_ext import SqliteExtDatabase
 from playhouse.shortcuts import model_to_dict
@@ -56,3 +56,13 @@ def test_feed_post():
         result = model_to_dict(all_feeds[0])
         for k in feed.keys():
             assert feed[k] == result[k]
+
+
+def test_feed_delete():
+    app = Application(application)
+    with test_database(temp_db, (Feed, Item)):
+        app.post('/api/feeds', json.dumps(feed_data), content_type='application/json')
+        feed = list(Feed.select())[0]
+        app.delete('/api/feeds?id={}'.format(feed.id))
+        all_feeds = list(Feed.select())
+        assert len(all_feeds) == 0
