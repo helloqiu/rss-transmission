@@ -2,12 +2,16 @@
 
 from setuptools import setup, find_packages
 from rssbot import __version__
+from m2r import convert
+
+with open("README.md", "r") as f:
+    readme = convert(f.read())
 
 setup(
     name='rss-transmission',
     version=__version__,
     description='Rss plugin for transmission with a web ui',
-    long_description=open("README.md").read(),
+    long_description=readme,
     keywords='rss transmission webui',
     author="helloqiu",
     author_email="helloqiu95@gmail.com",
