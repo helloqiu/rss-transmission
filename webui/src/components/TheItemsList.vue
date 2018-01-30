@@ -16,14 +16,12 @@
     <table class="table is-striped" v-if="show">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Title</th>
           <th>Publish Time</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
-          <td>{{ item.id }}</td>
           <td>{{ item.title }}</td>
           <td>{{ item.publish_time }}</td>
         </tr>

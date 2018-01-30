@@ -11,7 +11,6 @@
     <table class="table is-striped">
       <thead>
       <tr>
-        <th>ID</th>
         <th>Title</th>
         <th>Last Check</th>
         <th>Last Add</th>
@@ -20,7 +19,6 @@
       </thead>
       <tbody>
       <tr v-for="feed in feeds" :key="feed.id">
-        <td>{{ feed.id }}</td>
         <td>
           <a href="#" class="feed-title" v-on:click="show_update_modal(feed.id)">
             {{ feed.title }}
