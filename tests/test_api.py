@@ -7,12 +7,17 @@ from tests.utils import test_database
 from playhouse.sqlite_ext import SqliteExtDatabase
 from playhouse.shortcuts import model_to_dict
 from webtest import TestApp as Application
+from datetime import datetime
 
 temp_db = SqliteExtDatabase(":memory:")
 feed_data = dict(
     url='http://喵喵喵.test',
     save_path='/233/喵喵',
     title='喵'
+)
+item_data = dict(
+    title='喵喵',
+    magnet_link='喵喵喵'
 )
 
 
@@ -66,3 +71,17 @@ def test_feed_delete():
         app.delete('/api/feeds?id={}'.format(feed.id))
         all_feeds = list(Feed.select())
         assert len(all_feeds) == 0
+
+
+def test_item_get():
+    app = Application(application)
+    with test_database(temp_db, (Feed, Item)):
+        feed = Feed.create(**feed_data)
+        Item.create(feed=feed, publish_time=datetime.now(), **item_data)
+        resp = app.get('/api/items')
+        assert resp.status == '200 OK'
+        resp = json.loads(resp.body.decode('utf-8'))
+        assert len(resp) == 1
+        resp = resp[0]
+        for k in item_data.keys():
+            assert item_data[k] == resp[k]
