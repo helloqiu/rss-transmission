@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import json
-import copy
 from rssbot.web import app as application
 from rssbot.models import Feed
-from playhouse.test_utils import test_database
+from tests.utils import test_database
 from playhouse.sqlite_ext import SqliteExtDatabase
 from playhouse.shortcuts import model_to_dict
 from webtest import TestApp as Application
