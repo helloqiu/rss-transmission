@@ -11,7 +11,6 @@
     <table class="table is-striped">
       <thead>
       <tr>
-        <th>ID</th>
         <th>Title</th>
         <th>Last Check</th>
         <th>Last Add</th>
@@ -20,7 +19,6 @@
       </thead>
       <tbody>
       <tr v-for="feed in feeds" :key="feed.id">
-        <td>{{ feed.id }}</td>
         <td>
           <a href="#" class="feed-title" v-on:click="show_update_modal(feed.id)">
             {{ feed.title }}
@@ -57,18 +55,6 @@ export default {
       this.type = 'update'
       this.$store.dispatch('setModalToUpdate', id)
         .then(this.$store.dispatch('toggleShowModal'))
-    },
-    change_update_state: function () {
-      this.update_show = !this.update_show
-    },
-    update: function () {
-      this.update_feed_data.keywords = JSON.stringify(this.update_feed_data.keywords)
-      this.$http.post('feeds', this.update_feed_data, {'Content-Type': 'application/json'})
-        .then((response) => {
-          if (response.body === 'OK') {
-            location.reload()
-          }
-        })
     }
   },
   computed: {

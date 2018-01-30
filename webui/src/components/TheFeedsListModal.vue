@@ -43,6 +43,9 @@
             </div>
           </div>
           <a href="#" class="button" v-on:click="commit">{{ action }}</a>
+          <a href="#" class="button is-danger is-outlined" v-if="type === 'update'" v-on:click="delete_feed">
+            Delete
+          </a>
         </div>
       </div>
     </div>
@@ -71,6 +74,9 @@ export default {
     },
     delete_keyword (keyword) {
       this.$store.dispatch('deleteKeyword', keyword)
+    },
+    delete_feed () {
+      this.$store.dispatch('deleteFeedByID', this.feed.id)
     }
   },
   props: [

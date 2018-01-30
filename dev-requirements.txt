@@ -2,3 +2,5 @@
 responses
 coverage
 pytest
+webtest
+m2r
